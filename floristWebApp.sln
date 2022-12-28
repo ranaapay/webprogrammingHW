@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "floristWebApp", "floristWebApp\floristWebApp.csproj", "{3AB60E0C-C51E-4115-A234-ECFAF8DB1617}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "floristWebApi", "floristWebApi\floristWebApi.csproj", "{75F2AB33-C139-43CB-B206-192A7EEAFA2B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3AB60E0C-C51E-4115-A234-ECFAF8DB1617}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AB60E0C-C51E-4115-A234-ECFAF8DB1617}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AB60E0C-C51E-4115-A234-ECFAF8DB1617}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AB60E0C-C51E-4115-A234-ECFAF8DB1617}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75F2AB33-C139-43CB-B206-192A7EEAFA2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75F2AB33-C139-43CB-B206-192A7EEAFA2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75F2AB33-C139-43CB-B206-192A7EEAFA2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75F2AB33-C139-43CB-B206-192A7EEAFA2B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1533926E-6CB6-4D90-BDA0-B3F7BE3892AF}
+	EndGlobalSection
+EndGlobal
