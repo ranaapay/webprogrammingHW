@@ -6,6 +6,22 @@ var builder = WebApplication.CreateBuilder(args);
 //builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddHttpClient<IFloristClient, FloristClient>(c =>
+                c.BaseAddress = new Uri(builder.Configuration["ApiSettings:FloristWebApiUrl"]));
+
+builder.Services.AddSession();
+
+//builder.Services.AddAuthentication();
+
+builder.Services.ConfigureApplicationCookie(opt =>
+{
+    opt.LoginPath = new PathString("/Home/LogIn");
+    opt.Cookie.Name = "FloristAspNetCore";
+    opt.Cookie.HttpOnly = true;
+    opt.Cookie.SameSite = SameSiteMode.Strict;
+    opt.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+});
+
 var app = builder.Build();
 
 //app.MapGet("/", () => "Hello World!");
