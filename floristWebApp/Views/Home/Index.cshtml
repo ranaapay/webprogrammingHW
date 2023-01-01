@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-
-
-<table class="table table-sm table-bordered">
-    <tr>
-        <th>Kolon Adý</th>
-        <td>denemeler</td>
-    </tr>
-</table>
+<div class="row">
+    <div class="col-md-3">
+        @await Component.InvokeAsync("CategoryList")
+    </div>
+    <div class="col-md-9">
+        @await Component.InvokeAsync("ProductList");
+    </div>
+</div>
