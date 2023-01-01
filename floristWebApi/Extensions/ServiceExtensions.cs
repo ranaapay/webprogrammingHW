@@ -1,6 +1,8 @@
 using floristWebApi.Context;
+using floristWebApi.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
@@ -20,9 +22,33 @@ namespace CompanyEmployees.Extensions
     public static class ServiceExtensions
     {
         public static void ConfigureSqlContext(this IServiceCollection services) =>
-            services.AddDbContext<RepositoryContext>(opts =>
-            opts.UseSqlServer("server=.\\SQLEXPRESS; database=FloristDb; Integrated Security=true", b =>
-                    b.MigrationsAssembly("FloristDb")));
+            services.AddDbContext<RepositoryContext>();
+
+        public static void ConfigureIdentity(this IServiceCollection services)
+        {
+            /*
+            services.AddIdentityCore<User>(o =>
+            {
+                o.Password.RequireDigit = true;
+                o.Password.RequireLowercase = false;
+                o.Password.RequireUppercase = false;
+                o.Password.RequireNonAlphanumeric = false;
+                o.Password.RequiredLength = 10;
+                o.User.RequireUniqueEmail = true;
+            });
+            var builder = services.AddIdentityCore<User>();
+            builder.AddRoles<IdentityRole>()
+                   .AddEntityFrameworkStores<RepositoryContext>(); */
+
+            services.AddIdentity<User, IdentityRole>(opt =>
+            {
+                opt.Password.RequireDigit = false;
+                opt.Password.RequireLowercase = false;
+                opt.Password.RequireUppercase = false;
+                opt.Password.RequireNonAlphanumeric = false;
+                opt.Password.RequiredLength = 1;
+            }).AddEntityFrameworkStores<RepositoryContext>();
+        }
 
     }
 

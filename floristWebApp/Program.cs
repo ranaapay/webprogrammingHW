@@ -1,5 +1,11 @@
+using System;
+using floristWebApp.Client.FloristApi;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,9 +46,18 @@ app.UseRouting();
 });
 */
 app.UseStaticFiles();
+
+app.UseSession();
+
+//app.UseAuthentication();
+//app.UseAuthorization();
+
 app.UseEndpoints(endpoints =>
 {
-    app.MapControllerRoute(name: "default", pattern: "{Controller=Home}/{Action=Index}");
+    endpoints.MapControllerRoute(name: "areas", pattern: "{area}/{controller=Home}/{action=Index}/{id?}");
+    //endpoints.MapDefaultControllerRoute();
+    app.MapControllerRoute(name: "default", pattern: "{Controller=Home}/{Action=Index}/{id?}");
+    
 });
 
 app.Run();
