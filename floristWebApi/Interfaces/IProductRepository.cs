@@ -1,6 +1,10 @@
-﻿namespace floristWebApi.Interfaces
+﻿using System.Collections.Generic;
+using floristWebApi.Entities;
+
+namespace floristWebApi.Interfaces
 {
-    public interface IBaseRepository
+    public interface IProductRepository : IBaseRepository<Product>
     {
+        List<Category> GetCategories(int productId);
     }
 }

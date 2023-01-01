@@ -1,4 +1,6 @@
-﻿namespace floristWebApi.Entities
+﻿using System.Collections.Generic;
+
+namespace floristWebApi.Entities
 {
     public class Product
     {

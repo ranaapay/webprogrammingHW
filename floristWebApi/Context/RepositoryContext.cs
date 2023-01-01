@@ -1,19 +1,19 @@
 ﻿using floristWebApi.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace floristWebApi.Context
 {
-    public class RepositoryContext : DbContext
+    public class RepositoryContext : IdentityDbContext<User>
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("server=.\\SQLEXPRESS; database=FloristDb; Integrated Security=true; Encrypt=False");
+            base.OnConfiguring(optionsBuilder);
         }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-
             modelBuilder.Entity<Product>().HasMany(I => I.ProductCategories)
                 .WithOne( I => I.Product).HasForeignKey(I => I.ProductId);
 
@@ -26,11 +26,12 @@ namespace floristWebApi.Context
                 I.ProductId,
             }).IsUnique();
 
+            base.OnModelCreating(modelBuilder);
+
         }
 
         public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<Category> Categories { get; set; }
-
         public DbSet<Product> Products { get; set; }
     }
 }

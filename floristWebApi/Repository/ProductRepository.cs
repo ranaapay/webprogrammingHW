@@ -1,38 +1,40 @@
-﻿using floristWebApi.Context;
+﻿using System.Collections.Generic;
+using System.Linq;
+using floristWebApi.Context;
 using floristWebApi.Entities;
+using floristWebApi.Interfaces;
 
 namespace floristWebApi.Repository
 {
-    public class CategoryRepository
+    public class ProductRepository : BaseRepository<Product>, IProductRepository
     {
-        public void Add(Category table)
+        protected RepositoryContext RepositoryContext;
+        public ProductRepository(RepositoryContext repositoryContext) : base(repositoryContext)
         {
-            using var context = new RepositoryContext();
-            context.Categories.Add(table);
-            context.SaveChanges();
+            RepositoryContext = repositoryContext;
         }
 
-        public void Update(Category table)
+        public List<Category> GetCategories(int productId)
         {
-            using var context = new RepositoryContext();
-            context.Categories.Update(table);
-            context.SaveChanges();
-        }
-        public void Delete(Category table)
-        {
-            using var context = new RepositoryContext();
-            context.Categories.Remove(table);
-            context.SaveChanges();
-        }
-        public Category GetCategory(int id) { 
-            using var context = new RepositoryContext();
-            return context.Categories.Find(id);
-        }
+            var categories = RepositoryContext.Products.Join(RepositoryContext.ProductCategories, product => product.Id, pCategory => pCategory.ProductId,
+                (p, pC) => new
+                {
+                    product = p,
+                    pCategory = pC
+                }).Join(RepositoryContext.Categories, tables => tables.pCategory.CategoryId, category => category.Id,
+                (pc, c) => new
+                {
+                    product = pc.product,
+                    category = c,
+                    pCategory = pc.pCategory
+                }).Where(I => I.product.Id == productId).Select(I => new Category
+                {
+                    Id = I.category.Id,
+                    Name= I.category.Name,
 
-        public List<Category> GetAllCategories()
-        {
-            using var context = new RepositoryContext();
-            return context.Categories.ToList();
+                }).ToList();
+
+            return categories;
         }
     }
 }

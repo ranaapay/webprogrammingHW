@@ -1,6 +1,8 @@
-﻿namespace floristWebApi.Interfaces
+﻿using floristWebApi.Entities;
+
+namespace floristWebApi.Interfaces
 {
-    public interface IBaseRepository
+    public interface IProductCategoryRepository : IBaseRepository<ProductCategory>
     {
     }
 }

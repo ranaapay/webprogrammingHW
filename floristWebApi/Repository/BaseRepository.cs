@@ -1,38 +1,42 @@
-﻿using floristWebApi.Context;
+﻿using System.Collections.Generic;
+using System.Linq;
+using floristWebApi.Context;
 using floristWebApi.Entities;
+using floristWebApi.Interfaces;
 
 namespace floristWebApi.Repository
 {
-    public class CategoryRepository
+    public abstract class BaseRepository<T> : IBaseRepository<T> where T : class, new()
     {
-        public void Add(Category table)
+        protected RepositoryContext RepositoryContext;
+        public BaseRepository(RepositoryContext repositoryContext)
         {
-            using var context = new RepositoryContext();
-            context.Categories.Add(table);
-            context.SaveChanges();
+            RepositoryContext = repositoryContext;
         }
 
-        public void Update(Category table)
+        public void Add(T document)
         {
-            using var context = new RepositoryContext();
-            context.Categories.Update(table);
-            context.SaveChanges();
-        }
-        public void Delete(Category table)
-        {
-            using var context = new RepositoryContext();
-            context.Categories.Remove(table);
-            context.SaveChanges();
-        }
-        public Category GetCategory(int id) { 
-            using var context = new RepositoryContext();
-            return context.Categories.Find(id);
+            RepositoryContext.Set<T>().Add(document);
+            RepositoryContext.SaveChanges();
         }
 
-        public List<Category> GetAllCategories()
+        public void Update(T document)
         {
-            using var context = new RepositoryContext();
-            return context.Categories.ToList();
+            RepositoryContext.Set<T>().Update(document);
+            RepositoryContext.SaveChanges();
+        }
+        public void Delete(T document)
+        {
+            RepositoryContext.Set<T>().Remove(document);
+            RepositoryContext.SaveChanges();
+        }
+        public T GetDocumentById(int id) { 
+            return  RepositoryContext.Set<T>().Find(id);
+        }
+
+        public List<T> GetAllDocuments()
+        {
+            return RepositoryContext.Set<T>().ToList();
         }
     }
 }
