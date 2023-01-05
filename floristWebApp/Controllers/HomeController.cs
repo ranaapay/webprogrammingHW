@@ -1,5 +1,7 @@
+using floristWebApi.Entities;
 using floristWebApp.Client.FloristApi;
 using floristWebApp.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace floristWebApp.Controllers
@@ -7,13 +9,16 @@ namespace floristWebApp.Controllers
     public class HomeController : Controller
     {
         private readonly IFloristClient _floristClient;
+
         public HomeController(IFloristClient floristClient)
         {
             _floristClient= floristClient;
         }
+
         // GET
-        public IActionResult Index()
+        public IActionResult Index(int? categoryId)
         {
+            ViewBag.CategoryId = categoryId;
             return View();
         }
 
@@ -23,17 +28,24 @@ namespace floristWebApp.Controllers
             return View(product);
         }
 
-        public IActionResult LogIn()
+        public IActionResult Login()
         {
             return View(new UserLoginModel());
         }
 
         [HttpPost]
-        public IActionResult LogIn(UserLoginModel model)
+        public IActionResult Login(UserLoginModel model)
         {
-            if(ModelState.IsValid)
-            {
+            return RedirectToAction("Index", "Home", new { area = "Admin" });
 
+            if (ModelState.IsValid)
+            {
+                var result = _floristClient.Login(model).Result;
+                if (result)
+                {
+                    return RedirectToAction("Index", "Home", new {area= "Admin"});
+                }
+                ModelState.AddModelError("", "UserName or Password is wrong.");
             }
             return View(new UserLoginModel());
         }

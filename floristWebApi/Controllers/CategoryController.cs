@@ -1,4 +1,6 @@
-﻿using floristWebApi.Interfaces;
+﻿using floristWebApi.Dtos;
+using floristWebApi.Entities;
+using floristWebApi.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace floristWebApi.Controllers
@@ -34,6 +36,37 @@ namespace floristWebApi.Controllers
                 //throw new OrderNotFoundException(id);
             }
             return Ok(categories);
+        }
+
+        [HttpPost]
+        public IActionResult CreateCategory([FromBody] CreateCategoryModel model)
+        {
+            var category = new Category
+            {
+                Name = model.Name
+            };
+            _repository.Add(category);
+            return Ok();
+        }
+
+        [HttpPost("{id}")]
+        public IActionResult UpdateCategory([FromBody] UpdateCategoryModel model)
+        {
+            var category = new Category
+            {
+                Id= model.Id,
+                Name = model.Name
+            };
+
+            _repository.Update(category);
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteCategory(int id)
+        {
+            _repository.Delete(new Category { Id = id });
+            return Ok();
         }
     }
 }

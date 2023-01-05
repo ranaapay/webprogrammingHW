@@ -12,7 +12,12 @@ namespace floristWebApp.ViewComponents
             _floristClient= floristClient; 
         }
 
-        public IViewComponentResult Invoke() {
+        public IViewComponentResult Invoke(int? categoryId) {
+
+            if(categoryId.HasValue)
+            {
+                return View(_floristClient.GetProductByCategoryId((int)categoryId).Result);
+            }
 
             var products = _floristClient.GetAllProduct().Result;
             return View(products); 

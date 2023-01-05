@@ -13,6 +13,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+//builder.Services.AddAuthentication();
+
 builder.Services.ConfigureSqlContext();
 builder.Services.ConfigureIdentity();
 
@@ -24,6 +26,7 @@ builder.Services.AddIdentity<User, IdentityRole>();
 
 var app = builder.Build();
 
+/*
 var scope = app.Services
     .GetService<IServiceScopeFactory>()
     ?.CreateScope();
@@ -38,7 +41,7 @@ if (scope is not null)
         IdentityInitializer.CreateAdmin(userManager, roleManager);
     }
 }
-
+*/
 /*
 using (var scope = app.Services.CreateScope())
 {
@@ -54,7 +57,8 @@ using (var scope = app.Services.CreateScope())
 
 // Configure the HTTP request pipeline.
 
-app.UseAuthorization();
+//app.UseAuthentication();
+//app.UseAuthorization();
 
 app.MapControllers();
 

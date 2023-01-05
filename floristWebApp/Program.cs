@@ -9,19 +9,19 @@ using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddAuthentication();
+
+builder.Services.AddSession();
 //builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddHttpClient<IFloristClient, FloristClient>(c =>
                 c.BaseAddress = new Uri(builder.Configuration["ApiSettings:FloristWebApiUrl"]));
 
-builder.Services.AddSession();
-
-//builder.Services.AddAuthentication();
 
 builder.Services.ConfigureApplicationCookie(opt =>
 {
-    opt.LoginPath = new PathString("/Home/LogIn");
+    opt.LoginPath = new PathString("/Home/Login");
     opt.Cookie.Name = "FloristAspNetCore";
     opt.Cookie.HttpOnly = true;
     opt.Cookie.SameSite = SameSiteMode.Strict;
@@ -49,8 +49,8 @@ app.UseStaticFiles();
 
 app.UseSession();
 
-//app.UseAuthentication();
-//app.UseAuthorization();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {
