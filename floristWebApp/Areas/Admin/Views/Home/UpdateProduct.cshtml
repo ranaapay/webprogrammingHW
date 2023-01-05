@@ -1,0 +1,35 @@
+﻿@model UpdateProductModel
+
+<form asp-action="UpdateProduct" asp-controller="Home" asp-area="Admin" method="post"
+class="w-75 mx-auto p-3" enctype="multipart/form-data">
+    
+    <input type="hidden" asp-for="@Model.Id"/>
+
+    <div class="form-group">
+        <label>Product Name:</label>
+        <span asp-validation-for="@Model.Name" class="text-danger"></span>
+        <input asp-for="@Model.Name" />
+    </div>
+
+    <div class="form-group">
+        <label>Product Price:</label>
+        <span asp-validation-for="@Model.Price" class="text-danger"></span>
+        <input asp-for="@Model.Price" />
+    </div>
+
+    <div class="form-group">
+        <label>Product Photo:</label>
+        <input type="file" asp-for="@Model.Photo" class="form-control-file"/>
+    </div>
+
+    <div class="form-group">
+        <a asp-action="Index" asp-controller="Home" asp-area="Admin" 
+        class="btn btn-warning">Go Back</a>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+</form>
+
+@section JavaScript{
+    <script src="~/jqueryvalid/jquery.validate.min.js"></script>
+    <script src="~/jqueryunob/jquery.validate.unobtrusive.min.js"></script>
+}

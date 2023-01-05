@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+</head>
+<body>
+
+    @* Navbar *@
+    <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+        <div class="container">
+            <a class="navbar-brand" href="#">Atolye Fiore - Admin</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="Index" asp-controller="Home" asp-area="Admin">Product Operations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="Index" asp-controller="Category" asp-area="Admin">Category Operations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Log Out</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    @* Navbar *@
+
+    <div class="row mt-2">
+        <div class="container-fluid">
+            @RenderBody()
+        </div>
+    </div>
+
+    <script src="~/jquery/jquery.min.js"></script>
+    <script src="~/twitter-bootstrap/js/bootstrap.min.js"></script>
+    @RenderSection("JavaScript", false)
+
+</body>
+</html>
